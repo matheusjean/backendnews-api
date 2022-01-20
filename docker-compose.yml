@@ -1,0 +1,15 @@
+version: "3"
+services:
+  api:
+    image: matheusjean/api-ts
+    ports:
+      - "5555:3050"
+    links:
+      - link-db
+  link-db:
+    image: tutum/mongodb
+    ports:
+      - "29017:29017"
+      - "30017:30017"
+    environment:
+      - AUTH=no
