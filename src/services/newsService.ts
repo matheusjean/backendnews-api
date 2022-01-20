@@ -1,27 +1,25 @@
 import NewsRepository from '../repository/newsRepository';
 
-class NewsService{
-
-  get() {
-    return NewsRepository.find({});
+class NewsService {
+  async get() {
+    return await NewsRepository.find({});
   }
 
-  getById(_id) {
-    return NewsRepository.findById(_id);
+  async getById(_id) {
+    return await NewsRepository.findById(_id);
   }
 
-  create(news) {
-    return NewsRepository.create(news)
+  async create(news) {
+    return await NewsRepository.create(news);
   }
 
-  update(_id, news) {
-    return NewsRepository.findByIdAndUpdate(_id, news)
-
+  async update(_id, news) {
+    return await NewsRepository.findByIdAndUpdate(_id, news);
   }
 
-  delete(_id) {
-    return NewsRepository.findByIdAndRemove(_id)
+  async delete(_id) {
+    return await NewsRepository.findByIdAndRemove(_id);
   }
 }
 
-export default new NewsService()
+export default new NewsService();
