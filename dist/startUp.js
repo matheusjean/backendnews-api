@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const db_1 = require("./src/infra/db");
 const newsController_1 = require("./src/controller/newsController");
 class startUp {
@@ -12,7 +13,15 @@ class startUp {
         this.middler();
         this.routes();
     }
+    enableCors() {
+        const options = {
+            methods: 'GET, OPTIONS, PUT, POST, DELETE',
+            origin: '*',
+        };
+        this.app.use(cors(options));
+    }
     middler() {
+        this.enableCors();
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }

@@ -1,9 +1,9 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
 
-import DataBase from './src/infra/db'
+import DataBase from './src/infra/db';
 import NewsController from './src/controller/newsController';
-
 
 class startUp {
   public app: express.Application;
@@ -21,9 +21,19 @@ class startUp {
     this.routes();
   }
 
+  enableCors() {
+    const options: cors.CorsOptions = {
+      methods: 'GET, OPTIONS, PUT, POST, DELETE',
+      origin: '*',
+    };
+
+    this.app.use(cors(options));
+  }
+
   middler() {
-    this.app.use(bodyParser.json())
-    this.app.use(bodyParser.urlencoded({ extended: false }))
+    this.enableCors();
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
   }
 
   routes() {
@@ -33,9 +43,9 @@ class startUp {
 
     this.app.route('/api/v1/news').get(NewsController.get);
     this.app.route('/api/v1/news/:id').get(NewsController.getById);
-    this.app.route('/api/v1/news/').post(NewsController.create)
-    this.app.route('/api/v1/news/:id').put(NewsController.update)
-    this.app.route('/api/v1/news/:id').delete(NewsController.delete)
+    this.app.route('/api/v1/news/').post(NewsController.create);
+    this.app.route('/api/v1/news/:id').put(NewsController.update);
+    this.app.route('/api/v1/news/:id').delete(NewsController.delete);
   }
 }
 
