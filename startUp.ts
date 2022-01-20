@@ -4,6 +4,7 @@ import * as cors from 'cors';
 
 import DataBase from './src/infra/db';
 import NewsController from './src/controller/newsController';
+import Auth from './src/infra/auth';
 
 class startUp {
   public app: express.Application;
@@ -37,6 +38,8 @@ class startUp {
   }
 
   routes() {
+    this.app.use(Auth.validate);
+
     this.app.route('/').get((req, res) => {
       res.send({ versao: 'Api na V1' });
     });
