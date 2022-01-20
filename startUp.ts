@@ -5,6 +5,7 @@ import * as cors from 'cors';
 import DataBase from './src/infra/db';
 import NewsController from './src/controller/newsController';
 import Auth from './src/infra/auth';
+import uploads from './src/infra/uploads';
 
 class startUp {
   public app: express.Application;
@@ -38,11 +39,19 @@ class startUp {
   }
 
   routes() {
-    this.app.use(Auth.validate);
-
     this.app.route('/').get((req, res) => {
       res.send({ versao: 'Api na V1' });
     });
+
+    this.app.route('/uploads').post(uploads.single('file'), (req, res) => {
+      try {
+        res.send('Arquivo enviado com sucesso');
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    this.app.use(Auth.validate);
 
     this.app.route('/api/v1/news').get(NewsController.get);
     this.app.route('/api/v1/news/:id').get(NewsController.getById);
