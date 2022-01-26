@@ -3,7 +3,7 @@ services:
   api:
     image: matheusjean/api-ts
     ports:
-      - "5555:3050"
+      - "7777:3050"
     links:
       - link-db
   link-db:

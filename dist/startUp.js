@@ -31,6 +31,7 @@ class startUp {
         this.app.route('/').get((req, res) => {
             res.send({ versao: 'Api na V1' });
         });
+        this.app.use(auth_1.default.validate);
         this.app.route('/uploads').post(uploads_1.default.single('file'), (req, res) => {
             try {
                 res.send('Arquivo enviado com sucesso');
@@ -39,7 +40,6 @@ class startUp {
                 console.log(err);
             }
         });
-        this.app.use(auth_1.default.validate);
         this.app.route('/api/v1/news').get(newsController_1.default.get);
         this.app.route('/api/v1/news/:id').get(newsController_1.default.getById);
         this.app.route('/api/v1/news/').post(newsController_1.default.create);
