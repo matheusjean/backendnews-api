@@ -4,7 +4,6 @@ import * as cors from 'cors';
 
 import DataBase from './src/infra/db';
 import NewsController from './src/controller/newsController';
-import Auth from './src/infra/auth';
 import uploads from './src/infra/uploads';
 
 class startUp {
@@ -23,17 +22,7 @@ class startUp {
     this.routes();
   }
 
-  // enableCors() {
-  //   const options: cors.CorsOptions = {
-  //     methods: 'GET, OPTIONS, PUT, POST, DELETE',
-  //     origin: '*',
-  //   };
-
-  //   this.app.use(cors(options));
-  // }
-
   middler() {
-    // this.enableCors();
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
   }
@@ -43,7 +32,6 @@ class startUp {
       res.send({ versao: 'Api na V1' });
     });
 
-    // this.app.use(Auth.validate); rm
     this.app.route('/uploads').post(uploads.single('file'), (req, res) => {
       try {
         res.send('Arquivo enviado com sucesso');
