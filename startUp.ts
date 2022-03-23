@@ -43,7 +43,7 @@ class startUp {
       res.send({ versao: 'Api na V1' });
     });
 
-    // this.app.use(Auth.validate);
+    // this.app.use(Auth.validate); rm
     this.app.route('/uploads').post(uploads.single('file'), (req, res) => {
       try {
         res.send('Arquivo enviado com sucesso');
