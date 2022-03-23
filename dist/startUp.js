@@ -2,10 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const db_1 = require("./src/infra/db");
 const newsController_1 = require("./src/controller/newsController");
-const auth_1 = require("./src/infra/auth");
 const uploads_1 = require("./src/infra/uploads");
 class startUp {
     constructor() {
@@ -15,15 +13,7 @@ class startUp {
         this.middler();
         this.routes();
     }
-    enableCors() {
-        const options = {
-            methods: 'GET, OPTIONS, PUT, POST, DELETE',
-            origin: '*',
-        };
-        this.app.use(cors(options));
-    }
     middler() {
-        this.enableCors();
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
@@ -31,7 +21,6 @@ class startUp {
         this.app.route('/').get((req, res) => {
             res.send({ versao: 'Api na V1' });
         });
-        this.app.use(auth_1.default.validate);
         this.app.route('/uploads').post(uploads_1.default.single('file'), (req, res) => {
             try {
                 res.send('Arquivo enviado com sucesso');

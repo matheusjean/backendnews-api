@@ -14,9 +14,11 @@ const HttpStatus = require("http-status");
 const helper_1 = require("../infra/helper");
 class NewsController {
     get(req, res) {
-        newsService_1.default.get()
-            .then((news) => helper_1.default.sendResponse(res, HttpStatus.OK, news))
-            .catch((error) => console.error.bind(console, `Error${error}`));
+        return __awaiter(this, void 0, void 0, function* () {
+            yield newsService_1.default.get()
+                .then((news) => helper_1.default.sendResponse(res, HttpStatus.OK, news))
+                .catch((error) => console.error.bind(console, `Error${error}`));
+        });
     }
     getById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
